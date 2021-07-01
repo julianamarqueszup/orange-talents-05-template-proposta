@@ -65,6 +65,19 @@ public class Proposta {
         Assert.isTrue(this.statusAvaliacao.equals(StatusAvaliacaoProposta.NAO_ELEGIVEL), "Não pode mais trocar uma vez que a proposta é elegível.");
         this.statusAvaliacao = avaliacao;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
     public void associaCartao(String numero) {
         Assert.isNull(cartao, "Já associou o cartão");
         Assert.isTrue(this.statusAvaliacao.equals(StatusAvaliacaoProposta.ELEGIVEL), "Não rola associar cartão com proposta nao elegível");
