@@ -1,7 +1,6 @@
 package br.com.zupacademy.juliana.proposta.criacaoproposta;
 
 import com.sun.istack.NotNull;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -38,13 +37,11 @@ public class Proposta {
                     String endereco,
                     BigDecimal salario,
                     String documento) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String encodedDocuemento = bCryptPasswordEncoder.encode(documento);
         this.email = email;
         this.nome = nome;
         this.endereco = endereco;
         this.salario = salario;
-        this.documento = encodedDocuemento;
+        this.documento = documento;
         this.statusAvaliacao = StatusAvaliacaoProposta.NAO_ELEGIVEL;
     }
 
@@ -65,19 +62,4 @@ public class Proposta {
         Assert.isTrue(this.statusAvaliacao.equals(StatusAvaliacaoProposta.NAO_ELEGIVEL), "Não pode mais trocar uma vez que a proposta é elegível.");
         this.statusAvaliacao = avaliacao;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-
-
 }

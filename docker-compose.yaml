@@ -134,7 +134,23 @@ services:
       VAULT_TOKEN: ee413645-dbe8-4848-afc6-6bb2768ada75
       VAULT_ADDR: http://127.0.0.1:8200
 
+  proposta:
+    image: 'proposta'
+    ports:
+      - 8080:8080
+    depends_on:
+      - transacoes
+      - analise
+      - postgres
+    environment:
+      SERVER_PORT: 8080
+      URL_DATABASE: jdbc:postgresql://postgres:5432/proposta?serverTimezone=UTC
+      USERNAME_DATABASE: keycloak
+      PASSWORD_DATABASE: password
+
+
 volumes:
   grafana-volume:
   prometheus-volume:
   postgres-volume:
+
