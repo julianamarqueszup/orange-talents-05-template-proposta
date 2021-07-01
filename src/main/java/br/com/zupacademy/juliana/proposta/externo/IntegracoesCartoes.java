@@ -1,5 +1,6 @@
 package br.com.zupacademy.juliana.proposta.externo;
 
+import br.com.zupacademy.juliana.proposta.avisoviagem.NovoAvisoViagemRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,10 @@ public interface IntegracoesCartoes {
     @PostMapping("/api/cartoes/{id}/bloqueios")
     BloqueaCartaoResponse bloquearCartao(@PathVariable("id") String id,
                                          BloqueaCartaoRequest bloqueaCartaoRequest);
+    @PostMapping("/api/cartoes/{id}/avisos")
+    AvisoViagemResponse avisoViagem(@PathVariable("id") String id,
+                                    NovoAvisoViagemRequest avisoViagemRequest);
+
 }
 
 
