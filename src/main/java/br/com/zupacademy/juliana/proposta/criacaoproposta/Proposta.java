@@ -2,6 +2,7 @@ package br.com.zupacademy.juliana.proposta.criacaoproposta;
 
 import br.com.zupacademy.juliana.proposta.associacartao.Cartao;
 import com.sun.istack.NotNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -40,11 +41,13 @@ public class Proposta {
                     String endereco,
                     BigDecimal salario,
                     String documento) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String encodedDocumento = bCryptPasswordEncoder.encode(documento);
         this.email = email;
         this.nome = nome;
         this.endereco = endereco;
         this.salario = salario;
-        this.documento = documento;
+        this.documento = encodedDocumento;
         this.statusAvaliacao = StatusAvaliacaoProposta.NAO_ELEGIVEL;
     }
 
