@@ -2,6 +2,7 @@ package br.com.zupacademy.juliana.proposta.associacartao;
 
 
 import br.com.zupacademy.juliana.proposta.associacarteira.CarteiraPaypal;
+import br.com.zupacademy.juliana.proposta.associacarteira.CarteiraSamsungPay;
 import br.com.zupacademy.juliana.proposta.bloqueiocartao.PossiveisStatusUso;
 import br.com.zupacademy.juliana.proposta.bloqueiocartao.StatusUso;
 import br.com.zupacademy.juliana.proposta.criabiometria.Biometria;
@@ -32,6 +33,8 @@ public class Cartao {
     private List<StatusUso> statusUsos = new LinkedList<>();
     @OneToOne(mappedBy = "cartao", cascade = CascadeType.PERSIST)
     private CarteiraPaypal carteiraPaypal;
+    @OneToOne(mappedBy = "cartao", cascade = CascadeType.PERSIST)
+    private CarteiraSamsungPay carteiraSamsungPay;
 
     @Deprecated
     public Cartao() {
@@ -73,6 +76,14 @@ public class Cartao {
 
         this.carteiraPaypal = new CarteiraPaypal(this, email);
         return Optional.of(this.carteiraPaypal);
+    }
+    public Optional<CarteiraSamsungPay> adicionaSamsungPay(String email) {
+        if (this.carteiraSamsungPay != null) {
+            return Optional.empty();
+        }
+
+        this.carteiraSamsungPay = new CarteiraSamsungPay(this, email);
+        return Optional.of(this.carteiraSamsungPay);
     }
 }
 
