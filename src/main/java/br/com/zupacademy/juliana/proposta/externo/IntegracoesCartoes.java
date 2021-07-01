@@ -2,8 +2,12 @@ package br.com.zupacademy.juliana.proposta.externo;
 
 import br.com.zupacademy.juliana.proposta.avisoviagem.NovoAvisoViagemRequest;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Map;
 
 @FeignClient(url = "${proposta.services.sistema-cartao.host}:${proposta" +
         ".services.sistema-cartao.port}", name =
@@ -20,6 +24,10 @@ public interface IntegracoesCartoes {
     AvisoViagemResponse avisoViagem(@PathVariable("id") String id,
                                     NovoAvisoViagemRequest avisoViagemRequest);
 
+    @PostMapping("/api/cartoes/{id}/carteiras")
+    ResponseEntity<?> associaPaypal(@PathVariable("id") String numero,
+                                    @RequestBody Map<String,
+                                                                                String> email);
 }
 
 

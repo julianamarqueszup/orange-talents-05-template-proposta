@@ -1,6 +1,7 @@
 package br.com.zupacademy.juliana.proposta.associacartao;
 
 
+import br.com.zupacademy.juliana.proposta.associacarteira.CarteiraPaypal;
 import br.com.zupacademy.juliana.proposta.bloqueiocartao.PossiveisStatusUso;
 import br.com.zupacademy.juliana.proposta.bloqueiocartao.StatusUso;
 import br.com.zupacademy.juliana.proposta.criabiometria.Biometria;
@@ -14,10 +15,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Cartao {
@@ -32,6 +30,8 @@ public class Cartao {
     private Set<Biometria> biometrias = new HashSet<>();
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
     private List<StatusUso> statusUsos = new LinkedList<>();
+    @OneToOne(mappedBy = "cartao", cascade = CascadeType.PERSIST)
+    private CarteiraPaypal carteiraPaypal;
 
     @Deprecated
     public Cartao() {
@@ -43,15 +43,15 @@ public class Cartao {
         this.numero = numero;
     }
     @Transactional
-    public void bloquear(@NotBlank String userAgent,@NotBlank String ipRemoto) {
-        if(this.biometrias.isEmpty()) {
+    public void bloquear(@NotBlank String userAgent, @NotBlank String ipRemoto) {
+        if (this.biometrias.isEmpty()) {
             throw new NegocioException("É necessário cadastro de biometria " +
                     "para bloquear cartão.",
                     HttpStatus.BAD_REQUEST);
         }
         Assert.state(!this.biometrias.isEmpty(), "Nenhum cartão pode ser " +
                 "bloqueado se não tiver digital associada");
-        if(isBloqueado()){
+        if (isBloqueado()) {
             throw new NegocioException("Cartão já está com status: BLOQUEADO",
                     HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -65,6 +65,14 @@ public class Cartao {
 
     public String getNumero() {
         return numero;
+    }
+    public Optional<CarteiraPaypal> adicionaPaypal(String email) {
+        if (this.carteiraPaypal != null) {
+            return Optional.empty();
+        }
+
+        this.carteiraPaypal = new CarteiraPaypal(this, email);
+        return Optional.of(this.carteiraPaypal);
     }
 }
 
