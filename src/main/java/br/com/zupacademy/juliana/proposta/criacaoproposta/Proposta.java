@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
+@Entity
 public class Proposta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
