@@ -12,4 +12,3 @@ public interface IntegracoesCPF {
     public ResultadoSolicitacaoResponse avalia(NovoDocumentoRequest request);
 
 }
-
