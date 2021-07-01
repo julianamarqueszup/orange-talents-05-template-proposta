@@ -19,3 +19,4 @@ public class NegocioException extends RuntimeException {
         return status;
     }
 }
+

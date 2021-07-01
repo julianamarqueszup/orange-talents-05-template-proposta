@@ -25,3 +25,4 @@ public @interface CPForCNPJ {
 
     Class<? extends Payload>[] payload() default {};
 }
+

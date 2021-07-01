@@ -12,7 +12,7 @@ public class IntegracoesController {
 
     public String avaliaDocumento(@RequestBody NovoDocumentoRequest request) {
         int contAtual = conDocumentos.getAndIncrement();
-        if(contAtual % 2 != 0) {
+        if (contAtual % 2 != 0) {
             return "COM_RESTRICAO";
         }
 
@@ -20,3 +20,4 @@ public class IntegracoesController {
     }
 
 }
+

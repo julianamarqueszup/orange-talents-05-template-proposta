@@ -24,7 +24,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NegocioException.class)
     public ResponseEntity<Object> handleNegocio(NegocioException ex,
-                                                WebRequest request){
+                                                WebRequest request) {
         var status = ex.getStatus() == null ? HttpStatus.BAD_REQUEST :
                 ex.getStatus();
         var problem = new Problem();
@@ -62,3 +62,4 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 request);
     }
 }
+

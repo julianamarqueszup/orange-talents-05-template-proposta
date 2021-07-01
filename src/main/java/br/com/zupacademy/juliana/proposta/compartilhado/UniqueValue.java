@@ -11,8 +11,12 @@ import java.lang.annotation.*;
 public @interface UniqueValue {
     String message() default
             "{br.com.zupacademy.juliana.beanvalidation.uniquevalue}";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
+
     String fieldName();
+
     Class<?> domainClass();
 }

@@ -14,3 +14,4 @@ public enum StatusAvaliacaoResponse {
         return statusAvaliacaoProposta;
     }
 }
+
