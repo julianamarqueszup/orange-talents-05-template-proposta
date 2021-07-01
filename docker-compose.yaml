@@ -135,19 +135,19 @@ services:
       VAULT_ADDR: http://127.0.0.1:8200
 
   proposta:
-    image: 'proposta'
+    container_name: proposta
+    build:
+    dockerfile: Dockerfile
+    context: .
+    # image: 'proposta'
     ports:
       - 8080:8080
-    depends_on:
-      - transacoes
-      - analise
-      - postgres
     environment:
-      SERVER_PORT: 8080
-      URL_DATABASE: jdbc:postgresql://postgres:5432/proposta?serverTimezone=UTC
-      USERNAME_DATABASE: keycloak
-      PASSWORD_DATABASE: password
-
+    ANALISE_FINANCEIRA_HOST: http://analise
+    SISTEMA_CARTAO_HOST: http://contas
+    depends_on:
+      - analise
+      - transacoes
 
 volumes:
   grafana-volume:
